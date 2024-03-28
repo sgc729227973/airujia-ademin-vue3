@@ -8,7 +8,7 @@
       :model="queryParams"
       ref="queryFormRef"
       :inline="true"
-      label-width="68px"
+      label-width="70px" 
     >
       <el-form-item label="套餐名" prop="name">
         <el-input
@@ -66,6 +66,10 @@
         </template>
       </el-table-column>
       <el-table-column label="备注" align="center" prop="remark" />
+      /** irujia修改 */
+      <el-table-column label="套餐时长（月）" align="center" prop="durationMonths" />
+      <el-table-column label="API调用次数限制" align="center" prop="apiCallsLimit" />
+      <el-table-column label="存储空间（GB）" align="center" prop="storageSpaceGb" />
       <el-table-column
         label="创建时间"
         align="center"
@@ -73,6 +77,15 @@
         width="180"
         :formatter="dateFormatter"
       />
+      /** irujia修改 */
+      <el-table-column
+        label="更新时间"
+        align="center"
+        prop="updateTime"
+        width="180"
+        :formatter="dateFormatter"
+      />
+
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template #default="scope">
           <el-button

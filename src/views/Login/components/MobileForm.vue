@@ -150,10 +150,27 @@ const smsVO = reactive({
 })
 const mobileCodeTimer = ref(0)
 const redirect = ref<string>('')
+// const getSmsCode = async () => {
+//   await getTenantId()
+//   smsVO.smsCode.mobile = loginData.loginForm.mobileNumber
+//   await sendSmsCode(smsVO.smsCode).then(async () => {
+//     message.success(t('login.SmsSendMsg'))
+//     // 设置倒计时
+//     mobileCodeTimer.value = 60
+//     let msgTimer = setInterval(() => {
+//       mobileCodeTimer.value = mobileCodeTimer.value - 1
+//       if (mobileCodeTimer.value <= 0) {
+//         clearInterval(msgTimer)
+//       }
+//     }, 1000)
+//   })
+// }
 const getSmsCode = async () => {
-  await getTenantId()
-  smsVO.smsCode.mobile = loginData.loginForm.mobileNumber
-  await sendSmsCode(smsVO.smsCode).then(async () => {
+  // irujia
+  try {
+    await getTenantId()
+    smsVO.smsCode.mobile = loginData.loginForm.mobileNumber
+    await sendSmsCode(smsVO.smsCode)
     message.success(t('login.SmsSendMsg'))
     // 设置倒计时
     mobileCodeTimer.value = 60
@@ -163,8 +180,11 @@ const getSmsCode = async () => {
         clearInterval(msgTimer)
       }
     }, 1000)
-  })
+  } catch (err) {
+    // 处理错误，例如显示错误消息
+  }
 }
+
 watch(
   () => currentRoute.value,
   (route: RouteLocationNormalizedLoaded) => {

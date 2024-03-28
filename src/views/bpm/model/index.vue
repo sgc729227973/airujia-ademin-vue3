@@ -14,7 +14,7 @@
       :model="queryParams"
       ref="queryFormRef"
       :inline="true"
-      label-width="68px"
+      label-width="70px" 
     >
       <el-form-item label="流程标识" prop="key">
         <el-input

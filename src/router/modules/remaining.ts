@@ -101,6 +101,19 @@ const remainingRouter: AppRouteRecordRaw[] = [
           icon: 'ep:message',
           title: '我的站内信'
         }
+      },
+      // irujia 修改
+      {
+        path: 'details',
+        component: () => import('@/views/details/Index.vue'),
+        name: 'details',
+        meta: {
+          canTo: true,
+          hidden: true,
+          noTagsView: false,
+          icon: 'ep:user',
+          title: '详细信息'
+        }
       }
     ]
   },

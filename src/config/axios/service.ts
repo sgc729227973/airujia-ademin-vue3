@@ -153,8 +153,13 @@ service.interceptors.response.use(
           })
         })
       }
+    } else if (code === 403) {
+      ElMessage.error(msg)
+      // irujia修改 与后端约定如果是 403 状态码，则直接执行登出操作
+      return handleAuthorized()
     } else if (code === 500) {
-      ElMessage.error(t('sys.api.errMsg500'))
+      // ElMessage.error(t('sys.api.errMsg500'))
+      ElMessage.error(msg);  // irujia修改 根据后端的msg值进行动态展示
       return Promise.reject(new Error(msg))
     } else if (code === 901) {
       ElMessage.error({

@@ -79,3 +79,8 @@ export const updateUserStatus = (id: number, status: number) => {
 export const getSimpleUserList = (): Promise<UserVO[]> => {
   return request.get({ url: '/system/user/simple-list' })
 }
+
+// irujia修改 查询用户的详细信息
+export const getUserDetails = (id: number) => {
+  return request.get({ url: '/system/user/get-details?id=' + id })
+}

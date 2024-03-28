@@ -79,3 +79,8 @@ export const getCode = (data) => {
 export const reqCheck = (data) => {
   return request.postOriginal({ url: 'system/captcha/check', data })
 }
+
+// 获取公众号二维码  irujia
+export const fetchQRCode = () => {
+  return request.get({ url: 'system/public/qr_code' });
+}

@@ -1,7 +1,7 @@
 <template>
   <!-- 搜索工作栏 -->
   <ContentWrap>
-    <el-form class="-mb-15px" ref="queryForm" :inline="true" label-width="68px">
+    <el-form class="-mb-15px" ref="queryForm" :inline="true" label-width="70px" >
       <el-form-item label="公众号" prop="accountId">
         <el-select v-model="accountId" @change="getSummary" class="!w-240px">
           <el-option

@@ -183,6 +183,15 @@ const canvasClick = (e) => {
             }, 1500)
           }
           proxy.$parent.$emit('success', { captchaVerification })
+          // irujia 与后端约定验证码过期的情况
+        } else if (res.repCode == '0002') {
+          barAreaColor.value = '#d9534f'
+          barAreaBorderColor.value = '#d9534f'
+          text.value = t('captcha.expired') // 显示验证码过期的信息
+          setTimeout(() => {
+            refresh()
+          }, 700)
+          proxy.$parent.$emit('error', proxy)
         } else {
           proxy.$parent.$emit('error', proxy)
           barAreaColor.value = '#d9534f'
@@ -191,6 +200,8 @@ const canvasClick = (e) => {
           setTimeout(() => {
             refresh()
           }, 700)
+          // irujia 
+          proxy.$parent.$emit('error', proxy);
         }
       })
     }, 400)

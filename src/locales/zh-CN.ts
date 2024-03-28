@@ -9,6 +9,7 @@ export default {
     loginOut: '退出系统',
     document: '项目文档',
     profile: '个人中心',
+    details: '详细信息',    // irujia修改
     reminder: '温馨提示',
     loginOutMessage: '是否退出本系统？',
     back: '返回',
@@ -137,8 +138,10 @@ export default {
     backLogin: '返回',
     getSmsCode: '获取验证码',
     btnMobile: '手机登录',
-    btnQRCode: '二维码登录',
-    qrcode: '扫描二维码登录',
+    // btnQRCode: '二维码登录',
+    // qrcode: '扫描二维码登录',
+    btnQRCode: '微信扫码登录', //irujia
+    qrcode: '使用微信扫描二维码登录', //irujia
     btnRegister: '注册',
     SmsSendMsg: '验证码已发送'
   },
@@ -147,7 +150,8 @@ export default {
     slide: '向右滑动完成验证',
     point: '请依次点击',
     success: '验证成功',
-    fail: '验证失败'
+    fail: '验证失败',
+    expired: '验证码过期', //irujia
   },
   router: {
     login: '登录',
@@ -365,7 +369,8 @@ export default {
       signInFormTitle: '登录',
       ssoFormTitle: '三方授权',
       mobileSignInFormTitle: '手机登录',
-      qrSignInFormTitle: '二维码登录',
+      // qrSignInFormTitle: '二维码登录',
+      qrSignInFormTitle: '微信扫码登录', //irujai
       signUpFormTitle: '注册',
       forgetFormTitle: '重置密码',
       signInTitle: '开箱即用的中后台管理系统',
@@ -415,6 +420,15 @@ export default {
       basicInfo: '基本资料',
       resetPwd: '修改密码',
       userSocial: '社交信息'
+    },
+    // irujia修改
+    staffDetails: {
+      title: '员工详情',
+      loginInfo: '活跃信息',
+      serviceDetails: '服务详情',
+      scoreRating: '评价中心',
+      assessment: '考核评估',
+      attendance: '出勤详情'
     },
     rules: {
       nickname: '请输入用户昵称',

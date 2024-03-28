@@ -9,7 +9,7 @@
       :model="queryParams"
       ref="queryFormRef"
       :inline="true"
-      label-width="68px"
+      label-width="70px" 
     >
       <el-form-item label="产品" prop="productId">
         <el-select

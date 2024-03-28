@@ -39,6 +39,27 @@
             show-checkbox
           />
         </el-card>
+        /** irujia修改 */
+      </el-form-item>
+      <el-form-item label="API调用" prop="apiCallsLimit">
+        <el-input
+          v-model="formData.apiCallsLimit"
+          placeholder="请输入API调用次数限制或'*'表示无限制"
+        />
+      </el-form-item>
+
+      <el-form-item label="存储空间" prop="storageSpaceGb">
+        <el-input
+          v-model="formData.storageSpaceGb"
+          placeholder="请输入存储空间大小或'*'表示无限制"
+        />
+      </el-form-item>
+
+      <el-form-item label="套餐时长" prop="durationMonths">
+        <el-input
+          v-model="formData.durationMonths"
+          placeholder="请输入套餐时长或'*'表示无限制"
+        />
       </el-form-item>
       <el-form-item label="状态" prop="status">
         <el-radio-group v-model="formData.status">
@@ -83,6 +104,11 @@ const formData = ref({
   name: null,
   remark: null,
   menuIds: [],
+  // irujia修改
+  apiCallsLimit:'',
+  storageSpaceGb:'',
+  durationMonths: '',
+
   status: CommonStatusEnum.ENABLE
 })
 const formRules = reactive({
@@ -163,6 +189,11 @@ const resetForm = () => {
     name: null,
     remark: null,
     menuIds: [],
+    // irujia修改
+    apiCallsLimit: '',
+    storageSpaceGb: '',
+    durationMonths: '',
+
     status: CommonStatusEnum.ENABLE
   }
   treeRef.value?.setCheckedNodes([])

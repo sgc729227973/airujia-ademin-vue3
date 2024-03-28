@@ -7,7 +7,8 @@
 
   <ContentWrap>
     <!-- 搜索工作栏 -->
-    <el-form ref="queryFormRef" :inline="true" class="-mb-15px" label-width="68px">
+    <el-form
+ref="queryFormRef" :inline="true" class="-mb-15px" label-width="70px" >
       <el-form-item label="流程名称" prop="name">
         <el-input
           v-model="queryParams.processInstanceName"

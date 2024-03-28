@@ -6,7 +6,7 @@
       :inline="true"
       :model="queryParams"
       class="-mb-15px"
-      label-width="68px"
+      label-width="70px" 
     >
       <el-form-item label="敏感词" prop="name">
         <el-input

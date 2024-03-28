@@ -125,21 +125,6 @@
           </div>
         </el-form-item>
       </el-col>
-      <el-divider content-position="center">萌新必读</el-divider>
-      <el-col :span="24" style="padding-right: 10px; padding-left: 10px">
-        <el-form-item>
-          <div class="w-[100%] flex justify-between">
-            <el-link href="https://doc.iocoder.cn/" target="_blank">📚开发指南</el-link>
-            <el-link href="https://doc.iocoder.cn/video/" target="_blank">🔥视频教程</el-link>
-            <el-link href="https://www.iocoder.cn/Interview/good-collection/" target="_blank">
-              ⚡面试手册
-            </el-link>
-            <el-link href="http://static.yudao.iocoder.cn/mp/Aix9975.jpeg" target="_blank">
-              🤝外包咨询
-            </el-link>
-          </div>
-        </el-form-item>
-      </el-col>
     </el-row>
   </el-form>
 </template>
@@ -170,7 +155,7 @@ const permissionStore = usePermissionStore()
 const redirect = ref<string>('')
 const loginLoading = ref(false)
 const verify = ref()
-const captchaType = ref('blockPuzzle') // blockPuzzle 滑块 clickWord 点击文字
+const captchaType = ref('clickWord') // blockPuzzle 滑块 clickWord 点击文字
 
 const getShow = computed(() => unref(getLoginState) === LoginStateEnum.LOGIN)
 
@@ -184,9 +169,9 @@ const loginData = reactive({
   captchaEnable: import.meta.env.VITE_APP_CAPTCHA_ENABLE,
   tenantEnable: import.meta.env.VITE_APP_TENANT_ENABLE,
   loginForm: {
-    tenantName: '芋道源码',
-    username: 'admin',
-    password: 'admin123',
+    tenantName: '',
+    username: '',
+    password: '',
     captchaVerification: '',
     rememberMe: true // 默认记录我。如果不需要，可手动修改
   }
@@ -194,9 +179,10 @@ const loginData = reactive({
 
 const socialList = [
   { icon: 'ant-design:wechat-filled', type: 30 },
-  { icon: 'ant-design:dingtalk-circle-filled', type: 20 },
-  { icon: 'ant-design:github-filled', type: 0 },
-  { icon: 'ant-design:alipay-circle-filled', type: 0 }
+  { icon: 'ant-design:wechat-work-outlined', type: 30 }, // irujia修改
+  // { icon: 'ant-design:dingtalk-circle-filled', type: 20 },
+  // { icon: 'ant-design:github-filled', type: 0 },
+  // { icon: 'ant-design:alipay-circle-filled', type: 0 }
 ]
 
 // 获取验证码

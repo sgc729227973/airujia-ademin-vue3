@@ -335,6 +335,7 @@ const end = () => {
 }
 
 const refresh = async () => {
+  tipWords.value = '' // irujia修改 动态提示信息
   showRefresh.value = true
   finishText.value = ''
 
@@ -356,6 +357,9 @@ const refresh = async () => {
     transitionLeft.value = ''
     text.value = explain.value
   }, 300)
+  setTimeout(() => {
+  tipWords.value = '';
+  }, 5000);  // irujia 修改 提示5秒后清空提示信息
 }
 
 // 请求背景图片和验证图片
