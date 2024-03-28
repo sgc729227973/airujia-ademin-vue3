@@ -103,6 +103,9 @@ import { getTenantIdByName, sendSmsCode, smsLogin } from '@/api/login'
 import LoginFormTitle from './LoginFormTitle.vue'
 import { LoginStateEnum, useFormValid, useLoginState } from './useLogin'
 import { ElLoading } from 'element-plus'
+// irujia修改
+import * as LoginApi from '@/api/login'
+import * as authUtil from '@/utils/auth'
 
 defineOptions({ name: 'MobileForm' })
 
@@ -133,7 +136,7 @@ const loginData = reactive({
   },
   loginForm: {
     uuid: '',
-    tenantName: '芋道源码',
+    tenantName: '',
     mobileNumber: '',
     code: ''
   }
@@ -231,6 +234,19 @@ const signIn = async () => {
       }, 400)
     })
 }
+// irujia修改根据域名，获得租户信息
+const getTenantByWebsite = async () => {
+  const website = location.host
+  const res = await LoginApi.getTenantByWebsite(website)
+  if (res) {
+    loginData.loginForm.tenantName = res.name
+    authUtil.setTenantId(res.id)
+  }
+}
+// irujia修改
+onMounted(() => {
+  getTenantByWebsite()
+})
 </script>
 
 <style lang="scss" scoped>
