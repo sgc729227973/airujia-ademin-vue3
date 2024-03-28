@@ -1,10 +1,9 @@
-import BasicInfo from './BasicInfo.vue'
-import ProfileUser from './ProfileUser.vue'
-import UserAvatarVue from './UserAvatar.vue'
+import DetailsUser from './DetailsUser.vue'
 import LoginInfo from './LoginInfo.vue'
 import ServiceDetails from './ServiceDetails.vue'
 import ScoreRating from './ScoreRating.vue'
 import Assessment from './Assessment.vue'
 import Attendance from './Attendance.vue'
+import DetailsInfo from './DetailsInfo.vue'
 
-export { BasicInfo, ProfileUser, UserAvatarVue, LoginInfo, ServiceDetails, ScoreRating, Assessment, Attendance}
+export { DetailsInfo, DetailsUser, LoginInfo, ServiceDetails, ScoreRating, Assessment, Attendance}

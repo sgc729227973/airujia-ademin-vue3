@@ -1,6 +1,6 @@
 <template>
   <div>
-    "服务详情"
+    "基本资料"
   </div>
 </template>
 

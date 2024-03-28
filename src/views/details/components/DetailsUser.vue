@@ -41,27 +41,46 @@
       <li class="list-group-item">
         <Icon class="mr-5px" icon="ep:calendar" />
         {{ t('profile.user.createTime') }}
-        <div class="pull-right">{{ formatDate(userInfo.createTime) }}</div>
+        <div class="pull-right">{{ userInfo?.createTime ? formatDate(userInfo.createTime) : '' }}</div>
       </li>
     </ul>
   </div>
 </template>
 <script lang="ts" setup>
+import { onMounted, ref } from 'vue'
+import { useRoute } from 'vue-router'
 import { formatDate } from '@/utils/formatTime'
-import UserAvatar from './UserAvatar.vue'
+import { ProfileVO } from '@/api/system/user/profile'
+import { getUserDetails } from '@/api/system/user'
+// 组件名称
+defineOptions({ name: 'DetailsUser' })
 
-import { getUserProfile, ProfileVO } from '@/api/system/user/profile'
-
-defineOptions({ name: 'ProfileUser' })
-
+// 国际化
 const { t } = useI18n()
-const userInfo = ref({} as ProfileVO)
-const getUserInfo = async () => {
-  const users = await getUserProfile()
-  userInfo.value = users
+
+// 用户信息 ref
+const userInfo = ref<ProfileVO | null>(null)
+
+// 获取当前路由信息
+const route = useRoute()
+
+// 获取用户详情的方法
+const getUserInfo = async (id: number) => {
+  try {
+    const userDetails = await getUserDetails(id)
+    userInfo.value = userDetails
+  } catch (error) {
+    console.error('Error fetching user details:', error)
+    // 可以添加错误处理逻辑，例如显示错误消息
+  }
 }
-onMounted(async () => {
-  await getUserInfo()
+
+// 当组件加载时执行
+onMounted(() => {
+  const userId = route.query.userId
+  if (userId) {
+    getUserInfo(Number(userId))
+  }
 })
 </script>
 

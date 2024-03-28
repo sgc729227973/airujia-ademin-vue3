@@ -1,6 +1,6 @@
 <template>
   <div>
-    "我是一个好人"
+    "考核评估"
   </div>
 </template>
 

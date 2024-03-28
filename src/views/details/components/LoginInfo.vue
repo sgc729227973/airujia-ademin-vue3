@@ -1,6 +1,6 @@
 <template>
   <div>
-    "我是一个好人"
+    "活跃信息"
   </div>
 </template>
 

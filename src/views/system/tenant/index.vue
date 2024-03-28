@@ -104,8 +104,7 @@
       <el-table-column label="租户套餐" align="center" prop="packageId">
         <template #default="scope">
           <!-- <el-tag v-if="scope.row.packageId === 0" type="danger">系统租户</el-tag> -->
-          /** irujia修改 packageId === 1时 才是系统租户, 因为django drf 的后端ORM 字段foreignkey 必须为实例值 */
-          <el-tag v-if="scope.row.packageId === 1" type="danger">系统租户</el-tag> 
+          <el-tag v-if="scope.row.packageId === 1" type="danger"> 系统租户</el-tag> 
           <template v-else v-for="item in packageList">
             <el-tag type="success" :key="item.id" v-if="item.id === scope.row.packageId">
               {{ item.name }}

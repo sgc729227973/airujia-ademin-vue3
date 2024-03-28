@@ -1,8 +1,4 @@
 <template>
-  <doc-alert title="用户体系" url="https://doc.iocoder.cn/user-center/" />
-  <doc-alert title="三方登陆" url="https://doc.iocoder.cn/social-user/" />
-  <doc-alert title="Excel 导入导出" url="https://doc.iocoder.cn/excel-import-and-export/" />
-
   <el-row :gutter="20">
     <!-- 左侧部门树 -->
     <el-col :span="4" :xs="24">
@@ -116,7 +112,7 @@
             prop="deptName"
             :show-overflow-tooltip="true"
           />
-          <el-table-column label="手机号码" align="center" prop="mobile" width="120" />
+          <el-table-column label="手机号码" align="center" prop="mobile" width="125" />
           <el-table-column label="状态" key="status">
             <template #default="scope">
               <el-switch
@@ -174,6 +170,12 @@
                       >
                         <Icon icon="ep:circle-check" />分配角色
                       </el-dropdown-item>
+                      <el-dropdown-item
+                        command="handleDetails"
+                        v-if="checkPermi(['system:user:details'])"
+                      >
+                        <Icon icon="ep:document" />详细信息
+                      </el-dropdown-item>
                     </el-dropdown-menu>
                   </template>
                 </el-dropdown>
@@ -209,6 +211,8 @@ import UserForm from './UserForm.vue'
 import UserImportForm from './UserImportForm.vue'
 import UserAssignRoleForm from './UserAssignRoleForm.vue'
 import DeptTree from './DeptTree.vue'
+import router from '@/router'
+import { getUserDetails } from '@/api/system/user'
 
 defineOptions({ name: 'SystemUser' })
 
@@ -316,6 +320,9 @@ const handleCommand = (command: string, row: UserApi.UserVO) => {
     case 'handleRole':
       handleRole(row)
       break
+    case 'handleDetails':  // irujia修改 添加详细信息跳转
+      handleDetails(row)
+      break
     default:
       break
   }
@@ -355,8 +362,32 @@ const handleRole = (row: UserApi.UserVO) => {
   assignRoleFormRef.value.open(row)
 }
 
+/** 跳转到详细信息页面 */
+// irujia修改 
+const handleDetails = (row: UserApi.UserVO) => {
+  router.push({ name: 'details', query: { userId: row.id }});
+}
+
+// irujia修改 获取由路由传递的 userId 参数
+const route = useRoute()
+const userId = route.query.userId as string
+const userDetails = ref(null)
+const fetchUserDetails = async () => {
+  if (userId) {
+    try {
+      const details = await getUserDetails(parseInt(userId))
+      userDetails.value = details
+    } catch (error) {
+      console.error('Error fetching user details:', error)
+    }
+  }
+}
+
 /** 初始化 */
 onMounted(() => {
   getList()
+  fetchUserDetails()
 })
+
+
 </script>

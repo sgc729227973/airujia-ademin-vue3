@@ -6,20 +6,20 @@
           <span>{{ t('profile.user.title') }}</span>
         </div>
       </template>
-      <ProfileUser />
+      <DetailsUser />
     </el-card>
     <el-card class="user ml-3 w-2/3" shadow="hover">
       <template #header>
         <div class="card-header">
-          <span>{{ t('profile.info.title') }}</span>
+          <span>{{ t('profile.staffDetails.title') }}</span>
         </div>
       </template>
       <div>
         <el-tabs v-model="activeName" class="profile-tabs" style="height: 400px" tab-position="top">
-          <el-tab-pane :label="t('profile.info.basicInfo')" name="basicInfo">
-            <BasicInfo />
+          <el-tab-pane :label="t('profile.info.basicInfo')" name="DetailsInfo">
+            <DetailsInfo />
           </el-tab-pane>
-            <el-tab-pane :label="t('profile.staffDetails.loginInfo')" name="loginInfo">
+          <el-tab-pane :label="t('profile.staffDetails.loginInfo')" name="loginInfo">
             <LoginInfo />
           </el-tab-pane>
           <el-tab-pane :label="t('profile.staffDetails.serviceDetails')" name="serviceDetails">
@@ -40,11 +40,11 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { BasicInfo, ProfileUser,LoginInfo,ServiceDetails,ScoreRating,Assessment,Attendance } from './components'
+import { DetailsInfo,DetailsUser,LoginInfo,ServiceDetails,ScoreRating,Assessment,Attendance } from './components'
 
 const { t } = useI18n()
 defineOptions({ name: 'Details' })
-const activeName = ref('basicInfo')
+const activeName = ref('DetailsInfo')
 </script>
 <style scoped>
 .user {
