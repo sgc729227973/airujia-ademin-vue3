@@ -41,46 +41,27 @@
       <li class="list-group-item">
         <Icon class="mr-5px" icon="ep:calendar" />
         {{ t('profile.user.createTime') }}
-        <div class="pull-right">{{ userInfo?.createTime ? formatDate(userInfo.createTime) : '' }}</div>
+        <div class="pull-right">{{ formatDate(userInfo.createTime) }}</div>
       </li>
     </ul>
   </div>
 </template>
 <script lang="ts" setup>
-import { onMounted, ref } from 'vue'
-import { useRoute } from 'vue-router'
 import { formatDate } from '@/utils/formatTime'
-import { ProfileVO } from '@/api/system/user/profile'
-import { getUserDetails } from '@/api/system/user'
-// 组件名称
-defineOptions({ name: 'DetailsUser' })
+import UserAvatar from './UserAvatar.vue'
 
-// 国际化
+import { getUserProfile, ProfileVO } from '@/api/system/user/profile'
+
+defineOptions({ name: 'ProfileUser' })
+
 const { t } = useI18n()
-
-// 用户信息 ref
-const userInfo = ref<ProfileVO | null>(null)
-
-// 获取当前路由信息
-const route = useRoute()
-
-// 获取用户详情的方法
-const getUserInfo = async (id: number) => {
-  try {
-    const userDetails = await getUserDetails(id)
-    userInfo.value = userDetails
-  } catch (error) {
-    console.error('Error fetching user details:', error)
-    // 可以添加错误处理逻辑，例如显示错误消息
-  }
+const userInfo = ref({} as ProfileVO)
+const getUserInfo = async () => {
+  const users = await getUserProfile()
+  userInfo.value = users
 }
-
-// 当组件加载时执行
-onMounted(() => {
-  const userId = route.query.userId
-  if (userId) {
-    getUserInfo(Number(userId))
-  }
+onMounted(async () => {
+  await getUserInfo()
 })
 </script>
 
@@ -110,9 +91,22 @@ onMounted(() => {
   font-size: 13px;
   border-top: 1px solid #e7eaec;
   border-bottom: 1px solid #e7eaec;
+  overflow: hidden; /* 超出部分隐藏 */
+}
+
+
+
+  
+.list-group-item .pull-right {
+  text-align: right; /* 保证.pull-right中的内容靠右对齐 */
+  display: inline-block; /* 允许宽度调整以适应内容 */
+  width: 70%; /* 占满可用宽度 */
+  white-space: normal; /* 允许换行 */
 }
 
 .pull-right {
   float: right !important;
 }
+
+
 </style>

@@ -36,6 +36,14 @@ export interface UserProfileUpdateReqVO {
   email: string
   mobile: string
   sex: number
+  //irujia 修改
+  birthdate: string;  // 假设日期以字符串形式存储，如 'YYYY-MM-DD'
+  realName: string;
+  age: number;
+  experienceYears: number;
+  address: string;
+  detailAddress: string;
+  bio: string;
 }
 
 // 查询用户个人信息
@@ -62,4 +70,9 @@ export const updateUserPassword = (oldPassword: string, newPassword: string) => 
 // 用户头像上传
 export const uploadAvatar = (data) => {
   return request.upload({ url: '/system/user/profile/update-avatar', data: data })
+}
+
+// 用户头像上传
+export const uploadDetailsAvatar = (data) => {
+  return request.upload({ url: '/system/user/profile/update-details-avatar', data: data })
 }

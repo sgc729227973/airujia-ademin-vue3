@@ -409,11 +409,19 @@ export default {
       email: '用户邮箱',
       dept: '所属部门',
       posts: '所属岗位',
+      address: '地址',
+      detailAddress: '详细地址',
       roles: '所属角色',
       sex: '性别',
       man: '男',
       woman: '女',
-      createTime: '创建日期'
+
+      createTime: '创建日期',
+      birthdate: '生日',
+      realName: '真实姓名',
+      age: '年龄',
+      experienceYears: '工作年限',
+      bio: '个人简介',
     },
     info: {
       title: '基本信息',
@@ -423,7 +431,7 @@ export default {
     },
     // irujia修改
     staffDetails: {
-      title: '员工详情',
+      title: '详细信息',
       loginInfo: '活跃信息',
       serviceDetails: '服务详情',
       scoreRating: '评价中心',
@@ -435,7 +443,14 @@ export default {
       mail: '请输入邮箱地址',
       truemail: '请输入正确的邮箱地址',
       phone: '请输入正确的手机号码',
-      truephone: '请输入正确的手机号码'
+      address: '请输入地址',
+      detailAddress: '请输入详细地址',
+      truephone: '请输入正确的手机号码',
+      birthdate: '请选择生日',
+      realName: '请输入真实姓名',
+      age: '请输入年龄',
+      experienceYears: '请输入工作年限',
+      bio: '请输入个人简介',
     },
     password: {
       oldPassword: '旧密码',

@@ -123,6 +123,8 @@ export enum DICT_TYPE {
   SYSTEM_MAIL_SEND_STATUS = 'system_mail_send_status',
   SYSTEM_NOTIFY_TEMPLATE_TYPE = 'system_notify_template_type',
   SYSTEM_SOCIAL_TYPE = 'system_social_type',
+  SYSTEM_EXPERTISE_TAGS = 'system_expertise_tags', // irujia修改 技能标签
+  SYSTEM_SERVICE_TYPE = 'system_service_type', // irujia修改 技能标签
 
   // ========== INFRA 模块 ==========
   INFRA_BOOLEAN_STRING = 'infra_boolean_string',

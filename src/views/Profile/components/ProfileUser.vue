@@ -91,9 +91,22 @@ onMounted(async () => {
   font-size: 13px;
   border-top: 1px solid #e7eaec;
   border-bottom: 1px solid #e7eaec;
+  overflow: hidden; /* 超出部分隐藏 */
+}
+
+
+
+  
+.list-group-item .pull-right {
+  text-align: right; /* 保证.pull-right中的内容靠右对齐 */
+  display: inline-block; /* 允许宽度调整以适应内容 */
+  width: 70%; /* 占满可用宽度 */
+  white-space: normal; /* 允许换行 */
 }
 
 .pull-right {
   float: right !important;
 }
+
+
 </style>
