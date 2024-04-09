@@ -1,7 +1,4 @@
 <template>
-  <doc-alert title="功能权限" url="https://doc.iocoder.cn/resource-permission" />
-  <doc-alert title="数据权限" url="https://doc.iocoder.cn/data-permission" />
-
   <ContentWrap>
     <!-- 搜索工作栏 -->
     <el-form
@@ -91,9 +88,14 @@
       <el-table-column align="center" label="角色标识" prop="code" />
       <el-table-column align="center" label="显示顺序" prop="sort" />
       <el-table-column align="center" label="备注" prop="remark" />
-      <el-table-column align="center" label="状态" prop="status">
+      <el-table-column align="center" label="状态" prop="status" width="120">
         <template #default="scope">
-          <dict-tag :type="DICT_TYPE.COMMON_STATUS" :value="scope.row.status" />
+          <el-switch
+            v-model="scope.row.status"
+            :active-value="CommonStatusEnum.ENABLE"
+            :inactive-value="CommonStatusEnum.DISABLE"
+            @change="handleStatusChange(scope.row)"
+          />
         </template>
       </el-table-column>
       <el-table-column
@@ -168,6 +170,7 @@ import * as RoleApi from '@/api/system/role'
 import RoleForm from './RoleForm.vue'
 import RoleAssignMenuForm from './RoleAssignMenuForm.vue'
 import RoleDataPermissionForm from './RoleDataPermissionForm.vue'
+import { CommonStatusEnum } from '@/utils/constants'
 
 defineOptions({ name: 'SystemRole' })
 
@@ -199,6 +202,26 @@ const getList = async () => {
     loading.value = false
   }
 }
+
+const handleStatusChange = async (row) => {
+  try {
+    // 构造请求数据
+    const updateStatusData = {
+      id: row.id,
+      status: row.status
+    };
+    // 调用更新状态的 API
+    await RoleApi.updateRoleStatus(updateStatusData);
+    message.success('状态更新成功');
+    // 可能需要重新获取列表以显示更新后的状态
+    getList();
+  } catch (error) {
+    message.error('状态更新失败');
+    // 回滚切换操作
+    row.status = row.status === CommonStatusEnum.ENABLE ? CommonStatusEnum.DISABLE : CommonStatusEnum.ENABLE;
+  }
+};
+
 
 /** 搜索按钮操作 */
 const handleQuery = () => {

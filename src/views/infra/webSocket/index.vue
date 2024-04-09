@@ -79,7 +79,7 @@ defineOptions({ name: 'InfraWebSocket' })
 const message = useMessage() // 消息弹窗
 
 const server = ref(
-  (import.meta.env.VITE_BASE_URL + '/infra/ws').replace('http', 'ws') + '?token=' + getAccessToken()
+  (import.meta.env.VITE_WS_BASE_URL + '/ws/admin/infra/ws').replace('http', 'ws') + '?token=' + getAccessToken()
 ) // WebSocket 服务地址
 const getIsOpen = computed(() => status.value === 'OPEN') // WebSocket 连接是否打开
 const getTagColor = computed(() => (getIsOpen.value ? 'success' : 'red')) // WebSocket 连接的展示颜色

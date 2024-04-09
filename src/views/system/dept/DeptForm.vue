@@ -37,6 +37,9 @@
       <el-form-item label="联系电话" prop="phone">
         <el-input v-model="formData.phone" maxlength="11" placeholder="请输入联系电话" />
       </el-form-item>
+      <el-form-item label="租户名称" prop="tenantName">
+        <el-input v-model="formData.tenantName" maxlength="11" placeholder="请输入租户名称" />
+      </el-form-item>
       <el-form-item label="邮箱" prop="email">
         <el-input v-model="formData.email" maxlength="50" placeholder="请输入邮箱" />
       </el-form-item>
@@ -79,6 +82,7 @@ const formData = ref({
   title: '',
   parentId: undefined,
   name: undefined,
+  tenantName: undefined,
   sort: undefined,
   leaderUserId: undefined,
   phone: undefined,
@@ -154,6 +158,7 @@ const resetForm = () => {
     title: '',
     parentId: undefined,
     name: undefined,
+    tenantName: undefined,
     sort: undefined,
     leaderUserId: undefined,
     phone: undefined,

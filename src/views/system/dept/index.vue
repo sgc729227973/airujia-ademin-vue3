@@ -157,6 +157,9 @@ const handleQuery = () => {
 /** 重置按钮操作 */
 const resetQuery = () => {
   queryParams.pageNo = 1
+    // irujia 修改 重置其他查询参数
+  queryParams.name = undefined
+  queryParams.status = undefined
   queryFormRef.value.resetFields()
   handleQuery()
 }

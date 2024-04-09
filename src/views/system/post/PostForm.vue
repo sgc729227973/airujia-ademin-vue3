@@ -13,6 +13,9 @@
       <el-form-item label="岗位编码" prop="code">
         <el-input v-model="formData.code" placeholder="请输入岗位编码" />
       </el-form-item>
+      <el-form-item label="租户名称" prop="tenantName">
+        <el-input v-model="formData.tenantName" placeholder="请输入租户名称" />
+      </el-form-item>
       <el-form-item label="岗位顺序" prop="sort">
         <el-input v-model="formData.sort" placeholder="请输入岗位顺序" />
       </el-form-item>
@@ -54,6 +57,7 @@ const formData = ref({
   id: undefined,
   name: '',
   code: '',
+  tenantName: '',
   sort: 0,
   status: CommonStatusEnum.ENABLE,
   remark: ''
@@ -62,7 +66,8 @@ const formRules = reactive({
   name: [{ required: true, message: '岗位标题不能为空', trigger: 'blur' }],
   code: [{ required: true, message: '岗位编码不能为空', trigger: 'change' }],
   status: [{ required: true, message: '岗位状态不能为空', trigger: 'change' }],
-  remark: [{ required: false, message: '岗位内容不能为空', trigger: 'blur' }]
+  remark: [{ required: false, message: '岗位内容不能为空', trigger: 'blur' }],
+  tenantName: [{ required: true, message: '租户内容不能为空', trigger: 'change' }]
 })
 const formRef = ref() // 表单 Ref
 
@@ -116,6 +121,7 @@ const resetForm = () => {
     id: undefined,
     name: '',
     code: '',
+    tenantName: '',
     sort: undefined,
     status: CommonStatusEnum.ENABLE,
     remark: ''

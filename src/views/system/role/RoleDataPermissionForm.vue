@@ -69,6 +69,7 @@ import { SystemDataScopeEnum } from '@/utils/constants'
 import * as RoleApi from '@/api/system/role'
 import * as DeptApi from '@/api/system/dept'
 import * as PermissionApi from '@/api/system/permission'
+import { nextTick } from 'vue'
 
 defineOptions({ name: 'SystemRoleDataPermissionForm' })
 
@@ -81,7 +82,7 @@ const formData = reactive({
   id: 0,
   name: '',
   code: '',
-  dataScope: undefined,
+  dataScope: undefined as number | undefined,
   dataScopeDeptIds: []
 })
 const formRef = ref() // 表单 Ref
@@ -95,15 +96,27 @@ const checkStrictly = ref(true) // 是否严格模式，即父子不关联
 const open = async (row: RoleApi.RoleVO) => {
   dialogVisible.value = true
   resetForm()
-  // 加载 Dept 列表。注意，必须放在前面，不然下面 setChecked 没数据节点
+  
+  // 加载 Dept 列表
   deptOptions.value = handleTree(await DeptApi.getSimpleDeptList())
+  
   // 设置数据
   formData.id = row.id
   formData.name = row.name
   formData.code = row.code
   formData.dataScope = row.dataScope
-  row.dataScopeDeptIds?.forEach((deptId: number) => {
-    treeRef.value.setChecked(deptId, true, false)
+  
+  // irujia 修改 确保树形组件已渲染后再设置选中状态
+  nextTick(() => {
+    // 如果dataScopeDeptIds存在，则设置树形节点为选中状态
+    if (row.dataScopeDeptIds) {
+      row.dataScopeDeptIds.forEach((deptId: number) => {
+        // 请确认treeRef确实是el-tree组件的引用
+        if (treeRef.value) {
+          treeRef.value.setChecked(deptId, true, false)
+        }
+      })
+    }
   })
 }
 defineExpose({ open }) // 提供 open 方法，用于打开弹窗
@@ -142,7 +155,7 @@ const resetForm = () => {
     id: 0,
     name: '',
     code: '',
-    dataScope: undefined,
+    dataScope: undefined as number | undefined,
     dataScopeDeptIds: []
   }
   treeRef.value?.setCheckedNodes([])

@@ -217,7 +217,12 @@ const handleExport = async () => {
     // 发起导出
     exportLoading.value = true
     const data = await DictTypeApi.exportDictType(queryParams)
-    download.excel(data, '字典类型.xls')
+    // download.excel(data, '字典类型.xls')
+    // irujia 修改 生成文件名
+    const currentDate = new Date().toISOString().slice(0, 19).replace(/T|-|:/g, "");
+    const filename = `字典类型_${currentDate}.xls`;
+    // irujia 修改 导出文件
+    download.excel(data, filename);
   } catch {
   } finally {
     exportLoading.value = false

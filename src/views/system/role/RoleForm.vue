@@ -25,6 +25,9 @@
             :value="dict.value"
           />
         </el-select>
+      </el-form-item> 
+      <el-form-item label="租户名称"  prop="tenantName">
+        <el-input v-model="formData.tenantName" placeholder="请输入租户名称" />
       </el-form-item>
       <el-form-item label="备注" prop="remark">
         <el-input v-model="formData.remark" placeholder="请输备注" type="textarea" />
@@ -56,7 +59,8 @@ const formData = ref({
   code: '',
   sort: undefined,
   status: CommonStatusEnum.ENABLE,
-  remark: ''
+  remark: '',
+  tenantName: '' // irujia
 })
 const formRules = reactive({
   name: [{ required: true, message: '角色名称不能为空', trigger: 'blur' }],
@@ -92,7 +96,8 @@ const resetForm = () => {
     code: '',
     sort: undefined,
     status: CommonStatusEnum.ENABLE,
-    remark: ''
+    remark: '',
+    tenantName: '' // irujia
   }
   formRef.value?.resetFields()
 }
