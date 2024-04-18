@@ -1,6 +1,4 @@
 <template>
-  <doc-alert title="三方登录" url="https://doc.iocoder.cn/social-user/" />
-
   <ContentWrap>
     <!-- 搜索工作栏 -->
     <el-form
@@ -140,7 +138,8 @@ const queryParams = reactive({
   type: undefined,
   openid: undefined,
   nickname: undefined,
-  createTime: []
+  // createTime: []
+  createTime: ['', ''] as [string, string],  // 由irujia修改
 })
 const queryFormRef = ref() // 搜索的表单
 

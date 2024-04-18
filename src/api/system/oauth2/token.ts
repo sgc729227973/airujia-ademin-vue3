@@ -16,7 +16,12 @@ export const getAccessTokenPage = (params: PageParam) => {
   return request.get({ url: '/system/oauth2-token/page', params })
 }
 
-// 删除 token
-export const deleteAccessToken = (accessToken: string) => {
-  return request.delete({ url: '/system/oauth2-token/delete?accessToken=' + accessToken })
-}
+// irujia 修改 删除 token
+export const deleteToken = (token, tokenType) => {
+  return request.delete({ url: `/system/oauth2-token/delete?token=${token}&tokenType=${tokenType}` });
+};
+
+// irujia 修改 清除过期令牌
+export const clearExpiredTokens = () => {
+  return request.delete({ url: '/system/oauth2-token/clearExpired' });
+};

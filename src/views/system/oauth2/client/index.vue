@@ -1,6 +1,4 @@
 <template>
-  <doc-alert title="OAuth 2.0（SSO 单点登录)" url="https://doc.iocoder.cn/oauth2/" />
-
   <!-- 搜索 -->
   <ContentWrap>
     <el-form
@@ -19,7 +17,17 @@
           class="!w-240px"
         />
       </el-form-item>
-      <el-form-item label="状态" prop="status">
+
+      <el-form-item label="授权类型" prop="authorizationGrantType">
+        <el-select v-model="queryParams.authorizationGrantType" placeholder="请选择授权类型" clearable class="!w-240px">
+          <el-option label="授权码（Authorization Code）" value="authorization_code" />
+          <el-option label="简化（Implicit）" value="implicit" />
+          <el-option label="密码（Password）" value="password" />
+          <el-option label="客户端凭据（Client Credentials）" value="client_credentials" />
+          <el-option label="OpenID Connect 混合流程" value="openid_hybrid" />
+        </el-select>
+      </el-form-item>
+      <!-- <el-form-item label="状态" prop="status">
         <el-select v-model="queryParams.status" placeholder="请选择状态" clearable class="!w-240px">
           <el-option
             v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)"
@@ -28,7 +36,7 @@
             :value="dict.value"
           />
         </el-select>
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item>
         <el-button @click="handleQuery"><Icon icon="ep:search" class="mr-5px" /> 搜索</el-button>
         <el-button @click="resetQuery"><Icon icon="ep:refresh" class="mr-5px" /> 重置</el-button>
@@ -50,14 +58,19 @@
       <el-table-column label="客户端编号" align="center" prop="clientId" />
       <el-table-column label="客户端密钥" align="center" prop="secret" />
       <el-table-column label="应用名" align="center" prop="name" />
-      <el-table-column label="应用图标" align="center" prop="logo">
+      <!-- <el-table-column label="应用图标" align="center" prop="logo">
         <template #default="scope">
           <img width="40px" height="40px" :src="scope.row.logo" />
         </template>
-      </el-table-column>
-      <el-table-column label="状态" align="center" prop="status">
+      </el-table-column> -->
+      <el-table-column label="用户类型" align="center" prop="userType">
         <template #default="scope">
-          <dict-tag :type="DICT_TYPE.COMMON_STATUS" :value="scope.row.status" />
+          <dict-tag :type="DICT_TYPE.USER_TYPE" :value="scope.row.userType" />
+        </template>
+      </el-table-column>
+      <el-table-column label="登录类型" align="center" prop="loginType">
+        <template #default="scope">
+          <dict-tag :type="DICT_TYPE.INFRA_CODEGEN_SCENE" :value="scope.row.loginType" />
         </template>
       </el-table-column>
       <el-table-column label="访问令牌的有效期" align="center" prop="accessTokenValiditySeconds">
@@ -66,7 +79,17 @@
       <el-table-column label="刷新令牌的有效期" align="center" prop="refreshTokenValiditySeconds">
         <template #default="scope">{{ scope.row.refreshTokenValiditySeconds }} 秒</template>
       </el-table-column>
-      <el-table-column label="授权类型" align="center" prop="authorizedGrantTypes">
+      <el-table-column label="授权类型" align="center" prop="authorizationGrantType">
+        <template #default="scope">{{ scope.row.authorizationGrantType }} </template>
+      </el-table-column>
+      <el-table-column label="租户名称" align="center" prop="tenantName">
+        <template #default="scope">{{ scope.row.tenantName }} </template>
+      </el-table-column>
+
+      <!-- <el-table-column label="客户端类型" align="center" prop="clientType">
+        <template #default="scope">{{ scope.row.clientType }} </template>
+      </el-table-column> -->
+      <!-- <el-table-column label="授权类型" align="center" prop="authorizedGrantTypes">
         <template #default="scope">
           <el-tag
             :disable-transitions="true"
@@ -78,7 +101,7 @@
             {{ authorizedGrantType }}
           </el-tag>
         </template>
-      </el-table-column>
+      </el-table-column> -->
       <el-table-column
         label="创建时间"
         align="center"
@@ -137,7 +160,8 @@ const queryParams = reactive({
   pageNo: 1,
   pageSize: 10,
   name: null,
-  status: undefined
+  // status: undefined,
+  authorizationGrantType: ''
 })
 const queryFormRef = ref() // 搜索的表单
 

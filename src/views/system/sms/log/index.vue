@@ -1,6 +1,4 @@
 <template>
-  <doc-alert title="短信配置" url="https://doc.iocoder.cn/sms/" />
-
   <ContentWrap>
     <!-- 搜索工作栏 -->
     <el-form
@@ -191,6 +189,7 @@ import download from '@/utils/download'
 import * as SmsChannelApi from '@/api/system/sms/smsChannel'
 import * as SmsLogApi from '@/api/system/sms/smsLog'
 import SmsLogDetail from './SmsLogDetail.vue'
+import { SmsChannelVO } from '@/api/system/sms/smsChannel'
 
 defineOptions({ name: 'SystemSmsLog' })
 
@@ -203,16 +202,23 @@ const queryFormRef = ref() // 搜索的表单
 const queryParams = reactive({
   pageNo: 1,
   pageSize: 10,
-  channelId: null,
+  // channelId: null,
+  channelId: undefined,
   templateId: null,
   mobile: '',
-  sendStatus: null,
-  receiveStatus: null,
-  sendTime: [],
-  receiveTime: []
+  // sendStatus: null,
+  // receiveStatus: null,
+  sendStatus: undefined,
+  receiveStatus: undefined,
+  // sendTime: [],
+  sendTime: ['', ''] as [string, string],
+  receiveTime: ['', ''] as [string, string],
+  // receiveTime: []
 })
 const exportLoading = ref(false) // 导出的加载中
-const channelList = ref([]) // 短信渠道列表
+// const channelList = ref([]) // 短信渠道列表
+
+const channelList = ref<SmsChannelVO[]>([]);
 
 /** 查询列表 */
 const getList = async () => {

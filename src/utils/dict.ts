@@ -125,6 +125,7 @@ export enum DICT_TYPE {
   SYSTEM_SOCIAL_TYPE = 'system_social_type',
   SYSTEM_EXPERTISE_TAGS = 'system_expertise_tags', // irujia修改 技能标签
   SYSTEM_SERVICE_TYPE = 'system_service_type', // irujia修改 技能标签
+  SYSTEM_SMS_TEMPLATE_DETAIL_TYPE = 'system_sms_template_detail_type', // irujia修改 技能标签
 
   // ========== INFRA 模块 ==========
   INFRA_BOOLEAN_STRING = 'infra_boolean_string',
@@ -136,6 +137,7 @@ export enum DICT_TYPE {
   INFRA_CODEGEN_FRONT_TYPE = 'infra_codegen_front_type',
   INFRA_CODEGEN_SCENE = 'infra_codegen_scene',
   INFRA_FILE_STORAGE = 'infra_file_storage',
+  INFRA_TOKEN_TYPE = 'infra_token_type',
 
   // ========== BPM 模块 ==========
   BPM_MODEL_FORM_TYPE = 'bpm_model_form_type',

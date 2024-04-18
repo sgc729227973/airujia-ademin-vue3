@@ -42,7 +42,13 @@
         />
       </el-form-item>
       <el-form-item label="agentId" prop="agentId" v-if="formData!.socialType === 30">
-        <el-input v-model="formData.agentId" placeholder="授权方的网页应用 ID，有则填" />
+        <el-input v-model="formData.agentId" placeholder="授权方的网页应用 ID，可以为空" />
+      </el-form-item>
+      <el-form-item label="租户名称" prop="tenantName">
+        <el-input v-model="formData.tenantName" placeholder="请输入租户名称" />
+      </el-form-item>
+      <el-form-item label="令牌" prop="token">
+        <el-input v-model="formData.token" placeholder="请输入token，可以为空" />
       </el-form-item>
       <el-form-item label="状态" prop="status">
         <el-radio-group v-model="formData.status">
@@ -80,6 +86,8 @@ const formData = ref({
   userType: undefined,
   clientId: undefined,
   clientSecret: undefined,
+  tenantName: undefined,
+  token: undefined,
   agentId: undefined,
   status: 0
 })
@@ -146,6 +154,8 @@ const resetForm = () => {
     userType: undefined,
     clientId: undefined,
     clientSecret: undefined,
+    tenantName: undefined,
+    token: undefined,
     agentId: undefined,
     status: 0
   }

@@ -7,9 +7,9 @@
       <el-descriptions-item label="用户昵称" min-width="120">
         {{ detailData.nickname }}
       </el-descriptions-item>
-      <el-descriptions label="用户头像" min-width="120">
+      <!-- <el-descriptions label="用户头像" min-width="120">
         <el-image :src="detailData.avatar" class="h-30px w-30px" />
-      </el-descriptions>
+      </el-descriptions> -->
       <el-descriptions-item label="社交 token" min-width="120">
         {{ detailData.token }}
       </el-descriptions-item>

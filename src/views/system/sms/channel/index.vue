@@ -1,6 +1,4 @@
 <template>
-  <doc-alert title="短信配置" url="https://doc.iocoder.cn/sms/" />
-
   <ContentWrap>
     <el-form
       class="-mb-15px"
@@ -18,7 +16,7 @@
         />
       </el-form-item>
       <el-form-item label="启用状态" prop="status">
-        <el-select v-model="queryParams.status" placeholder="请选择启用状态" clearable>
+        <el-select v-model="queryParams.status" placeholder="请选择启用状态" clearable class="!w-160px">
           <el-option
             v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)"
             :key="dict.value"
@@ -56,7 +54,7 @@
   <ContentWrap>
     <el-table v-loading="loading" :data="list">
       <el-table-column label="编号" align="center" prop="id" />
-      <el-table-column label="短信签名" align="center" prop="signature" />
+      <el-table-column label="签名信息" align="center" prop="signature" />
       <el-table-column label="渠道编码" align="center" prop="code">
         <template #default="scope">
           <dict-tag :type="DICT_TYPE.SYSTEM_SMS_CHANNEL_CODE" :value="scope.row.code" />
@@ -68,26 +66,28 @@
         </template>
       </el-table-column>
       <el-table-column label="备注" align="center" prop="remark" :show-overflow-tooltip="true" />
+      <el-table-column label="地域信息" align="center" prop="region" :show-overflow-tooltip="true" />
+      <el-table-column label="应用 ID" align="center" prop="SmsSdkAppId" :show-overflow-tooltip="true" />
       <el-table-column
-        label="短信 API 的账号"
+        label="API 账号"
         align="center"
         prop="apiKey"
         :show-overflow-tooltip="true"
-        width="180"
+        width="120"
       />
       <el-table-column
-        label="短信 API 的密钥"
+        label="API 密钥"
         align="center"
         prop="apiSecret"
         :show-overflow-tooltip="true"
-        width="180"
+        width="120"
       />
       <el-table-column
-        label="短信发送回调 URL"
+        label="回调 URL"
         align="center"
         prop="callbackUrl"
         :show-overflow-tooltip="true"
-        width="180"
+        width="120"
       />
       <el-table-column
         label="创建时间"
@@ -96,7 +96,7 @@
         width="180"
         :formatter="dateFormatter"
       />
-      <el-table-column label="操作" align="center">
+      <el-table-column label="操作" align="center" >
         <template #default="scope">
           <el-button
             link
@@ -149,7 +149,8 @@ const queryParams = reactive({
   pageSize: 10,
   signature: undefined,
   status: undefined,
-  createTime: []
+  // createTime: []
+  createTime: ['', ''] as [string, string],  // 由irujia修改
 })
 
 /** 查询列表 */

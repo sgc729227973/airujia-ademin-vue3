@@ -3,6 +3,7 @@ import request from '@/config/axios'
 export interface SmsTemplateVO {
   id?: number
   type?: number
+  detailType?: number
   status: number
   code: string
   name: string
@@ -11,6 +12,7 @@ export interface SmsTemplateVO {
   apiTemplateId: string
   channelId?: number
   channelCode?: string
+  tenantName?: string
   params?: string[]
   createTime?: Date
 }

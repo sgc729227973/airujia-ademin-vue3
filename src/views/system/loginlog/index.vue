@@ -66,7 +66,14 @@
       </el-table-column>
       <el-table-column label="用户名称" align="center" prop="username" width="180" />
       <el-table-column label="登录地址" align="center" prop="userIp" width="180" />
-      <el-table-column label="浏览器" align="center" prop="userAgent" />
+      <!-- irujia修改 省略 浏览器内容的 多余部分，由详情处显示 -->
+      <el-table-column label="浏览器" align="center" prop="userAgent">
+        <template #default="scope">
+          <div class="user-agent-cell">
+            {{ scope.row.userAgent }}
+          </div>
+        </template>
+      </el-table-column>
       <el-table-column label="登陆结果" align="center" prop="result">
         <template #default="scope">
           <dict-tag :type="DICT_TYPE.SYSTEM_LOGIN_RESULT" :value="scope.row.result" />
@@ -178,3 +185,13 @@ onMounted(() => {
   getList()
 })
 </script>
+
+<style>
+.user-agent-cell {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: block;
+  width: 100%; /* irujai 修改 */
+}
+</style>

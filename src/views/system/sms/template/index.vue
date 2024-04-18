@@ -1,6 +1,4 @@
 <template>
-  <doc-alert title="短信配置" url="https://doc.iocoder.cn/sms/" />
-
   <ContentWrap>
     <!-- 搜索工作栏 -->
     <el-form
@@ -15,7 +13,7 @@
           v-model="queryParams.type"
           placeholder="请选择短信类型"
           clearable
-          class="!w-240px"
+          class="!w-200px"
         >
           <el-option
             v-for="dict in getIntDictOptions(DICT_TYPE.SYSTEM_SMS_TEMPLATE_TYPE)"
@@ -30,7 +28,7 @@
           v-model="queryParams.status"
           placeholder="请选择开启状态"
           clearable
-          class="!w-240px"
+          class="!w-200px"
         >
           <el-option
             v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)"
@@ -46,7 +44,7 @@
           placeholder="请输入模板编码"
           clearable
           @keyup.enter="handleQuery"
-          class="!w-240px"
+          class="!w-200px"
         />
       </el-form-item>
       <el-form-item label="短信 API 的模板编号" prop="apiTemplateId">
@@ -55,7 +53,7 @@
           placeholder="请输入短信 API 的模板编号"
           clearable
           @keyup.enter="handleQuery"
-          class="!w-240px"
+          class="!w-200px"
         />
       </el-form-item>
       <el-form-item label="短信渠道" prop="channelId">
@@ -63,7 +61,7 @@
           v-model="queryParams.channelId"
           placeholder="请选择短信渠道"
           clearable
-          class="!w-240px"
+          class="!w-200px"
         >
           <el-option
             v-for="channel in channelList"
@@ -132,15 +130,15 @@
         label="模板内容"
         align="center"
         prop="content"
-        width="200"
+        width="160"
         :show-overflow-tooltip="true"
       />
-      <el-table-column label="短信类型" align="center" prop="type">
+      <el-table-column label="短信类型" align="center" prop="type" width="90">
         <template #default="scope">
           <dict-tag :type="DICT_TYPE.SYSTEM_SMS_TEMPLATE_TYPE" :value="scope.row.type" />
         </template>
       </el-table-column>
-      <el-table-column label="状态" align="center" prop="status" width="80">
+      <el-table-column label="状态" align="center" prop="status" width="70">
         <template #default="scope">
           <dict-tag :type="DICT_TYPE.COMMON_STATUS" :value="scope.row.status" />
         </template>
@@ -150,10 +148,10 @@
         label="短信 API 的模板编号"
         align="center"
         prop="apiTemplateId"
-        width="200"
+        width="160"
         :show-overflow-tooltip="true"
       />
-      <el-table-column label="短信渠道" align="center" width="120">
+      <el-table-column label="短信渠道" align="center" width="100">
         <template #default="scope">
           <div>
             {{ channelList.find((channel) => channel.id === scope.row.channelId)?.signature }}
@@ -165,7 +163,7 @@
         label="创建时间"
         align="center"
         prop="createTime"
-        width="180"
+        width="140"
         :formatter="dateFormatter"
       />
       <el-table-column label="操作" align="center" width="210" fixed="right">
@@ -238,7 +236,8 @@ const queryParams = reactive({
   content: '',
   apiTemplateId: '',
   channelId: undefined,
-  createTime: []
+  // createTime: []
+  createTime: ['', ''] as [string, string],  // 由irujia修改
 })
 const exportLoading = ref(false) // 导出的加载中
 const channelList = ref<SmsChannelApi.SmsChannelVO[]>([]) // 短信渠道列表

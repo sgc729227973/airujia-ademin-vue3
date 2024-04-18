@@ -11,6 +11,12 @@ export interface SocialUserVO {
   rawUserInfo: string
   code: string
   state: string
+
+  // createTime: number
+  // updateTime: number
+  // tenantName: string
+  // tenantId: string
+  // deleted: boolean
 }
 
 // 查询社交用户列表

@@ -1,6 +1,4 @@
 <template>
-  <doc-alert title="三方登录" url="https://doc.iocoder.cn/social-user/" />
-
   <ContentWrap>
     <!-- 搜索工作栏 -->
     <el-form
@@ -106,6 +104,7 @@
         </template>
       </el-table-column>
       <el-table-column align="center" label="客户端编号" prop="clientId" width="180px" />
+      <el-table-column align="center" label="租户名称" prop="tenantName" width="180px" />
       <el-table-column align="center" label="状态" prop="status">
         <template #default="scope">
           <dict-tag :type="DICT_TYPE.COMMON_STATUS" :value="scope.row.status" />

@@ -50,18 +50,24 @@ export const SystemDataScopeEnum = {
  * 用户的社交平台的类型枚举
  */
 export const SystemUserSocialTypeEnum = {
-  DINGTALK: {
-    title: '钉钉',
-    type: 20,
-    source: 'dingtalk',
-    img: 'https://s1.ax1x.com/2022/05/22/OzMDRs.png'
-  },
-  WECHAT_ENTERPRISE: {
-    title: '企业微信',
-    type: 30,
-    source: 'wechat_enterprise',
-    img: 'https://s1.ax1x.com/2022/05/22/OzMrzn.png'
-  }
+  // DINGTALK: {
+  //   title: '钉钉',
+  //   type: 20,
+  //   source: 'dingtalk',
+  //   img: 'https://s1.ax1x.com/2022/05/22/OzMDRs.png'
+  // },
+//   WECHAT_ENTERPRISE: {
+//     title: '企业微信',
+//     type: 30,
+//     source: 'wechat_enterprise',
+//     img: 'https://s1.ax1x.com/2022/05/22/OzMrzn.png'
+//   }
+    DINGTALK: {
+      title: '微信公众号',
+      type: 31,
+      source: 'wechat_official_account',
+      img: 'https://airujia-1300208231.cos.ap-shanghai.myqcloud.com/infra/img/icon/%E5%85%AC%E4%BC%97%E5%8F%B7.png'
+    },
 }
 
 // ========== INFRA 模块 ==========

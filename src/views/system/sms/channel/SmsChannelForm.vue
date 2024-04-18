@@ -7,13 +7,13 @@
       :rules="formRules"
       label-width="130px"
     >
-      <el-form-item label="短信签名" prop="signature">
-        <el-input v-model="formData.signature" placeholder="请输入短信签名" />
+      <el-form-item label="签名信息" prop="signature">
+        <el-input v-model="formData.signature" placeholder="请输入签名信息" />
       </el-form-item>
       <el-form-item label="渠道编码" prop="code">
         <el-select v-model="formData.code" clearable placeholder="请选择渠道编码">
           <el-option
-            v-for="dict in getStrDictOptions(DICT_TYPE.SYSTEM_SMS_CHANNEL_CODE)"
+            v-for="dict in getIntDictOptions(DICT_TYPE.SYSTEM_SMS_CHANNEL_CODE)"
             :key="dict.value"
             :label="dict.label"
             :value="dict.value"
@@ -34,6 +34,15 @@
       <el-form-item label="备注" prop="remark">
         <el-input v-model="formData.remark" placeholder="请输入备注" />
       </el-form-item>
+      <el-form-item label="租户名称" prop="tenantName">
+        <el-input v-model="formData.tenantName" placeholder="请输入租户名称" />
+      </el-form-item>
+      <el-form-item label="应用 ID" prop="smsSdkAppId">
+        <el-input v-model="formData.smsSdkAppId" placeholder="请输入应用 ID" />
+      </el-form-item>
+      <el-form-item label="地域信息" prop="region">
+        <el-input v-model="formData.region" placeholder="请输入地域信息" />
+      </el-form-item>
       <el-form-item label="短信 API 的账号" prop="apiKey">
         <el-input v-model="formData.apiKey" placeholder="请输入短信 API 的账号" />
       </el-form-item>
@@ -51,7 +60,7 @@
   </Dialog>
 </template>
 <script lang="ts" setup>
-import { DICT_TYPE, getIntDictOptions, getStrDictOptions } from '@/utils/dict'
+import { DICT_TYPE, getIntDictOptions } from '@/utils/dict'
 import * as SmsChannelApi from '@/api/system/sms/smsChannel'
 import { CommonStatusEnum } from '@/utils/constants'
 
@@ -72,6 +81,9 @@ const formData = ref({
   remark: '',
   apiKey: '',
   apiSecret: '',
+  tenantName: '',
+  smsSdkAppId: '',
+  region: '',
   callbackUrl: ''
 })
 const formRules = reactive({
@@ -136,7 +148,10 @@ const resetForm = () => {
     status: CommonStatusEnum.ENABLE,
     remark: '',
     apiKey: '',
+    tenantName: '',
     apiSecret: '',
+    smsSdkAppId: '',
+    region: '',
     callbackUrl: ''
   }
   formRef.value?.resetFields()

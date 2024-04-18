@@ -12,6 +12,9 @@
         {{ detailData.templateId }} | {{ detailData.templateCode }}
         <dict-tag :type="DICT_TYPE.SYSTEM_SMS_TEMPLATE_TYPE" :value="detailData.templateType" />
       </el-descriptions-item>
+      <el-descriptions-item label="模版详细类型">
+        <dict-tag :type="DICT_TYPE.SYSTEM_SMS_TEMPLATE_DETAIL_TYPE" :value="detailData.templateDetailType" />
+      </el-descriptions-item>
       <el-descriptions-item label="API 的模板编号">
         {{ detailData.apiTemplateId }}
       </el-descriptions-item>
@@ -61,13 +64,15 @@ import { DICT_TYPE } from '@/utils/dict'
 import { formatDate } from '@/utils/formatTime'
 import * as SmsLogApi from '@/api/system/sms/smsLog'
 import * as SmsChannelApi from '@/api/system/sms/smsChannel'
+import { SmsChannelVO } from '@/api/system/sms/smsChannel';
 
 defineOptions({ name: 'SystemSmsLogDetail' })
 
 const dialogVisible = ref(false) // 弹窗的是否展示
 const detailLoading = ref(false) // 表单的加载中
 const detailData = ref() // 详情数据
-const channelList = ref([]) // 短信渠道列表
+// const channelList = ref([]) // 短信渠道列表
+const channelList = ref<SmsChannelVO[]>([]);
 
 /** 打开弹窗 */
 const open = async (data: SmsLogApi.SmsLogVO) => {

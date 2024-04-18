@@ -150,7 +150,8 @@ const queryParams = reactive({
   name: null,
   status: null,
   remark: null,
-  createTime: [],
+  // createTime: [],
+  createTime: ['', ''] as [string, string],
 })
 const queryFormRef = ref() // 搜索的表单
 const exportLoading = ref(false) // 导出的加载中

@@ -1,5 +1,5 @@
 <template>
-  <Dialog v-model="dialogVisible" :title="dialogTitle" max-height="500px" scroll>
+  <Dialog v-model="dialogVisible" :title="dialogTitle" max-height="400px" scroll>
     <el-form
       ref="formRef"
       v-loading="formLoading"
@@ -7,22 +7,41 @@
       :rules="formRules"
       label-width="160px"
     >
-      <el-form-item label="客户端编号" prop="secret">
+      <el-form-item label="客户端编号" prop="clientId">
         <el-input v-model="formData.clientId" placeholder="请输入客户端编号" />
       </el-form-item>
       <el-form-item label="客户端密钥" prop="secret">
-        <el-input v-model="formData.secret" placeholder="请输入客户端密钥" />
+        <el-input v-model="formData.secret" placeholder="由Oauth2 自动生成" disabled />
       </el-form-item>
       <el-form-item label="应用名" prop="name">
-        <el-input v-model="formData.name" placeholder="请输入应用名" />
+        <el-input v-model="formData.name" placeholder="请输入应用名" disabled />
       </el-form-item>
-      <el-form-item label="应用图标">
+      <el-form-item label="租户名称" prop="tenantName">
+        <el-input v-model="formData.tenantName" placeholder="请输入租户名称" />
+      </el-form-item>
+      <el-form-item label="客户端类型" prop="clientType">
+        <el-select v-model="formData.clientType" placeholder="请选择客户端类型">
+          <el-option label="私密  ( confidential )" value="confidential"/>
+          <el-option label="公开  ( public )" value="public"/>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="签名算法" prop="algorithm">
+        <el-select v-model="formData.algorithm" placeholder="请选择签名算法">
+          <el-option label="无 OIDC 支持" value=""/>
+          <el-option label="RSA with SHA-2 256" value="RS256"/>
+          <el-option label="HMAC with SHA-2 256" value="HS256"/>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="是否跳过授权" prop="skipAuthorization">
+        <el-switch v-model="formData.skipAuthorization" />
+      </el-form-item>
+      <!-- <el-form-item label="应用图标">
         <UploadImg v-model="formData.logo" :limit="1" />
-      </el-form-item>
-      <el-form-item label="应用描述">
+      </el-form-item> -->
+      <!-- <el-form-item label="应用描述">
         <el-input v-model="formData.description" placeholder="请输入应用名" type="textarea" />
-      </el-form-item>
-      <el-form-item label="状态" prop="status">
+      </el-form-item> -->
+      <!-- <el-form-item label="状态" prop="status">
         <el-radio-group v-model="formData.status">
           <el-radio
             v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)"
@@ -32,18 +51,17 @@
             {{ dict.label }}
           </el-radio>
         </el-radio-group>
-      </el-form-item>
-      <el-form-item label="访问令牌的有效期" prop="accessTokenValiditySeconds">
+      </el-form-item> -->
+      <!-- <el-form-item label="访问令牌的有效期" prop="accessTokenValiditySeconds">
         <el-input-number v-model="formData.accessTokenValiditySeconds" placeholder="单位：秒" />
       </el-form-item>
       <el-form-item label="刷新令牌的有效期" prop="refreshTokenValiditySeconds">
         <el-input-number v-model="formData.refreshTokenValiditySeconds" placeholder="单位：秒" />
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item label="授权类型" prop="authorizedGrantTypes">
         <el-select
-          v-model="formData.authorizedGrantTypes"
+          v-model="formData.authorizationGrantType"
           filterable
-          multiple
           placeholder="请输入授权类型"
           style="width: 500px"
         >
@@ -55,7 +73,37 @@
           />
         </el-select>
       </el-form-item>
-      <el-form-item label="授权范围" prop="scopes">
+      <el-form-item label="用户类型" prop="userType">
+        <el-select
+          v-model="formData.userType"
+          filterable
+          placeholder="请输入用户类型"
+          style="width: 500px"
+        >
+          <el-option
+            v-for="dict in getDictOptions(DICT_TYPE.USER_TYPE)"
+            :key="dict.value"
+            :label="dict.label"
+            :value="dict.value"
+          />
+        </el-select>
+      </el-form-item>
+      <el-form-item label="登录类型" prop="loginType">
+        <el-select
+          v-model="formData.loginType"
+          filterable
+          placeholder="请输入登录类型"
+          style="width: 500px"
+        >
+          <el-option
+            v-for="dict in getDictOptions(DICT_TYPE.INFRA_CODEGEN_SCENE)"
+            :key="dict.value"
+            :label="dict.label"
+            :value="dict.value"
+          />
+        </el-select>
+      </el-form-item>
+      <!-- <el-form-item label="授权范围" prop="scopes">
         <el-select
           v-model="formData.scopes"
           filterable
@@ -77,8 +125,14 @@
         >
           <el-option v-for="scope in formData.scopes" :key="scope" :label="scope" :value="scope" />
         </el-select>
+      </el-form-item> -->
+      <el-form-item label="重定向的URI" prop="redirectUris">
+        <el-input v-model="formData.redirectUris" placeholder="请输入可重定向的 URI 地址" />
       </el-form-item>
-      <el-form-item label="可重定向的 URI 地址" prop="redirectUris">
+      <el-form-item label="注销后的重定向URI" prop="postLogoutRedirectUris">
+        <el-input v-model="formData.postLogoutRedirectUris" placeholder="请输入注销后的重定向 URI 地址" />
+      </el-form-item>
+      <!-- <el-form-item label="重定向的URI" prop="redirectUris">
         <el-select
           v-model="formData.redirectUris"
           allow-create
@@ -94,8 +148,8 @@
             :value="redirectUri"
           />
         </el-select>
-      </el-form-item>
-      <el-form-item label="权限" prop="authorities">
+      </el-form-item> -->
+      <!-- <el-form-item label="权限" prop="authorities">
         <el-select
           v-model="formData.authorities"
           allow-create
@@ -111,8 +165,8 @@
             :value="authority"
           />
         </el-select>
-      </el-form-item>
-      <el-form-item label="资源" prop="resourceIds">
+      </el-form-item> -->
+      <!-- <el-form-item label="资源" prop="resourceIds">
         <el-select
           v-model="formData.resourceIds"
           allow-create
@@ -135,7 +189,7 @@
           placeholder="请输入附加信息，JSON 格式数据"
           type="textarea"
         />
-      </el-form-item>
+      </el-form-item> -->
     </el-form>
     <template #footer>
       <el-button :disabled="formLoading" type="primary" @click="submitForm">确 定</el-button>
@@ -144,9 +198,10 @@
   </Dialog>
 </template>
 <script lang="ts" setup>
-import { DICT_TYPE, getDictOptions, getIntDictOptions } from '@/utils/dict'
-import { CommonStatusEnum } from '@/utils/constants'
+import { DICT_TYPE, getDictOptions } from '@/utils/dict'
+// import { CommonStatusEnum } from '@/utils/constants'
 import * as ClientApi from '@/api/system/oauth2/client'
+// import { CommonStatusEnum } from '@/utils/constants';
 
 defineOptions({ name: 'SystemOAuth2ClientForm' })
 
@@ -162,33 +217,41 @@ const formData = ref({
   clientId: undefined,
   secret: undefined,
   name: undefined,
-  logo: undefined,
-  description: undefined,
-  status: CommonStatusEnum.ENABLE,
-  accessTokenValiditySeconds: 30 * 60,
-  refreshTokenValiditySeconds: 30 * 24 * 60,
-  redirectUris: [],
-  authorizedGrantTypes: [],
-  scopes: [],
-  autoApproveScopes: [],
-  authorities: [],
-  resourceIds: [],
-  additionalInformation: undefined
+  // logo: undefined,
+  // description: undefined,
+  // status: CommonStatusEnum.ENABLE,
+  // accessTokenValiditySeconds: 30 * 60,
+  // refreshTokenValiditySeconds: 30 * 24 * 60,
+  // redirectUris: [],
+  redirectUris: '',
+  postLogoutRedirectUris: '',
+  clientType: '',
+  algorithm: '',
+  loginType: '',
+  userType: '',
+  tenantName: '',
+  authorizationGrantType: undefined,
+  skipAuthorization: false,
+  // scopes: [],
+  // autoApproveScopes: [],
+  // authorities: [],
+  // resourceIds: [],
+  // additionalInformation: undefined
 })
 const formRules = reactive({
   clientId: [{ required: true, message: '客户端编号不能为空', trigger: 'blur' }],
-  secret: [{ required: true, message: '客户端密钥不能为空', trigger: 'blur' }],
+  // secret: [{ required: true, message: '客户端密钥不能为空', trigger: 'blur' }],
   name: [{ required: true, message: '应用名不能为空', trigger: 'blur' }],
-  logo: [{ required: true, message: '应用图标不能为空', trigger: 'blur' }],
-  status: [{ required: true, message: '状态不能为空', trigger: 'blur' }],
-  accessTokenValiditySeconds: [
-    { required: true, message: '访问令牌的有效期不能为空', trigger: 'blur' }
-  ],
-  refreshTokenValiditySeconds: [
-    { required: true, message: '刷新令牌的有效期不能为空', trigger: 'blur' }
-  ],
-  redirectUris: [{ required: true, message: '可重定向的 URI 地址不能为空', trigger: 'blur' }],
-  authorizedGrantTypes: [{ required: true, message: '授权类型不能为空', trigger: 'blur' }]
+  // logo: [{ required: true, message: '应用图标不能为空', trigger: 'blur' }],
+  // status: [{ required: true, message: '状态不能为空', trigger: 'blur' }],
+  // accessTokenValiditySeconds: [
+  //   { required: true, message: '访问令牌的有效期不能为空', trigger: 'blur' }
+  // ],
+  // refreshTokenValiditySeconds: [
+  //   { required: true, message: '刷新令牌的有效期不能为空', trigger: 'blur' }
+  // ],
+  // redirectUris: [{ required: true, message: '可重定向的 URI 地址不能为空', trigger: 'blur' }],
+  authorizationGrantType: [{ required: true, message: '授权类型不能为空', trigger: 'blur' }]
 })
 const formRef = ref() // 表单 Ref
 
@@ -243,18 +306,26 @@ const resetForm = () => {
     clientId: undefined,
     secret: undefined,
     name: undefined,
-    logo: undefined,
-    description: undefined,
-    status: CommonStatusEnum.ENABLE,
-    accessTokenValiditySeconds: 30 * 60,
-    refreshTokenValiditySeconds: 30 * 24 * 60,
-    redirectUris: [],
-    authorizedGrantTypes: [],
-    scopes: [],
-    autoApproveScopes: [],
-    authorities: [],
-    resourceIds: [],
-    additionalInformation: undefined
+    // logo: undefined,
+    // description: undefined,
+    // status: CommonStatusEnum.ENABLE,
+    // accessTokenValiditySeconds: 30 * 60,
+    // refreshTokenValiditySeconds: 30 * 24 * 60,
+    // redirectUris: [],
+    redirectUris: '',
+    postLogoutRedirectUris: '',
+    clientType: '',
+    algorithm: '',
+    loginType: '',
+    userType: '',
+    tenantName: '',
+    authorizationGrantType: undefined,
+    skipAuthorization: false,
+    // scopes: [],
+    // autoApproveScopes: [],
+    // authorities: [],
+    // resourceIds: [],
+    // additionalInformation: undefined
   }
   formRef.value?.resetFields()
 }

@@ -12,6 +12,8 @@ export interface SmsChannelVO {
   createTime: Date
 }
 
+
+
 // 查询短信渠道列表
 export const getSmsChannelPage = (params: PageParam) => {
   return request.get({ url: '/system/sms-channel/page', params })

@@ -30,6 +30,16 @@
           />
         </el-select>
       </el-form-item>
+      <el-form-item label="详细类型" prop="detailType">
+        <el-select v-model="formData.detailType" placeholder="请选择详细类型">
+          <el-option
+            v-for="dict in getIntDictOptions(DICT_TYPE.SYSTEM_SMS_TEMPLATE_DETAIL_TYPE)"
+            :key="dict.value"
+            :label="dict.label"
+            :value="dict.value"
+          />
+        </el-select>
+      </el-form-item>
       <el-form-item label="模板编号" prop="code">
         <el-input v-model="formData.code" placeholder="请输入模板编号" />
       </el-form-item>
@@ -52,6 +62,9 @@
       </el-form-item>
       <el-form-item label="短信 API 模板编号" prop="apiTemplateId">
         <el-input v-model="formData.apiTemplateId" placeholder="请输入短信 API 的模板编号" />
+      </el-form-item>
+      <el-form-item label="租户名称" prop="tenantName">
+        <el-input v-model="formData.tenantName" placeholder="请输入租户名称" />
       </el-form-item>
       <el-form-item label="备注" prop="remark">
         <el-input v-model="formData.remark" placeholder="请输入备注" />
@@ -81,12 +94,14 @@ const formType = ref('') // 表单的类型
 const formData = ref<SmsTemplateApi.SmsTemplateVO>({
   id: undefined,
   type: undefined,
+  detailType: undefined, //irujia 修改
   status: CommonStatusEnum.ENABLE,
   code: '',
   name: '',
   content: '',
   remark: '',
   apiTemplateId: '',
+  tenantName: '',
   channelId: undefined
 })
 const formRules = reactive({
@@ -94,6 +109,7 @@ const formRules = reactive({
   status: [{ required: true, message: '开启状态不能为空', trigger: 'blur' }],
   code: [{ required: true, message: '模板编码不能为空', trigger: 'blur' }],
   name: [{ required: true, message: '模板名称不能为空', trigger: 'blur' }],
+  tenantName: [{ required: true, message: '租户名称不能为空', trigger: 'blur' }],
   content: [{ required: true, message: '模板内容不能为空', trigger: 'blur' }],
   apiTemplateId: [{ required: true, message: '短信 API 的模板编号不能为空', trigger: 'blur' }],
   channelId: [{ required: true, message: '短信渠道编号不能为空', trigger: 'change' }]
@@ -150,11 +166,13 @@ const resetForm = () => {
   formData.value = {
     id: undefined,
     type: undefined,
+    detailType: undefined,
     status: CommonStatusEnum.ENABLE,
     code: '',
     name: '',
     content: '',
     remark: '',
+    tenantName: '',
     apiTemplateId: '',
     channelId: undefined
   }

@@ -80,7 +80,7 @@ export const reqCheck = (data) => {
   return request.postOriginal({ url: 'system/captcha/check', data })
 }
 
-// 获取公众号二维码  irujia
+// 获取公众号二维码  irujia修改
 export const fetchQRCode = () => {
   return request.get({ url: 'system/public/qr_code' });
 }
