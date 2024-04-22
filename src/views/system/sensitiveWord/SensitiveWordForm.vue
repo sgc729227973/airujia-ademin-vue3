@@ -21,6 +21,16 @@
           </el-radio>
         </el-radio-group>
       </el-form-item>
+      <el-form-item label="类型" prop="sensitiveType">
+        <el-select v-model="formData.sensitiveType" placeholder="请选择类型">
+          <el-option
+            v-for="dict in getIntDictOptions(DICT_TYPE.SYSTEM_SENSITIVE_TYPE)"
+            :key="dict.value"
+            :label="dict.label"
+            :value="dict.value"
+          />
+        </el-select>
+      </el-form-item>
       <el-form-item label="备注" prop="description">
         <el-input v-model="formData.description" placeholder="请输入内容" />
       </el-form-item>
@@ -62,6 +72,7 @@ const formData = ref({
   name: '',
   status: CommonStatusEnum.ENABLE,
   description: '',
+  sensitiveType: undefined,
   tags: []
 })
 const formRules = reactive({
@@ -124,6 +135,7 @@ const resetForm = () => {
     name: '',
     status: CommonStatusEnum.ENABLE,
     description: '',
+    sensitiveType: undefined,
     tags: []
   }
   formRef.value?.resetFields()

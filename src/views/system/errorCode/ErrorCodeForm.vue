@@ -16,6 +16,9 @@
       <el-form-item label="错误码提示" prop="message">
         <el-input v-model="formData.message" clearable placeholder="请输入错误码提示" />
       </el-form-item>
+      <el-form-item label="枚举值" prop="enumKey">
+        <el-input v-model="formData.enumKey" clearable placeholder="请输入枚举值" />
+      </el-form-item>
       <el-form-item label="备注" prop="memo">
         <el-input v-model="formData.memo" clearable placeholder="请输入备注" />
       </el-form-item>
@@ -44,13 +47,15 @@ const formData = ref({
   code: undefined,
   applicationName: '',
   message: '',
+  enumKey: '',
   memo: ''
 })
 // 表单校验
 const formRules = reactive({
   applicationName: [{ required: true, message: '应用名不能为空', trigger: 'blur' }],
   code: [{ required: true, message: '错误码编码不能为空', trigger: 'blur' }],
-  message: [{ required: true, message: '错误码提示不能为空', trigger: 'blur' }]
+  message: [{ required: true, message: '错误码提示不能为空', trigger: 'blur' }],
+  enumKey: [{ required: true, enumKey: '错误码提示不能为空', trigger: 'blur' }]
 })
 const formRef = ref() // 表单 Ref
 
@@ -105,6 +110,7 @@ const resetForm = () => {
     applicationName: '',
     code: undefined,
     message: '',
+    enumKey: '',
     memo: ''
   }
   formRef.value?.resetFields()

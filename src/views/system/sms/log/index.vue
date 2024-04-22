@@ -114,13 +114,13 @@
   <ContentWrap>
     <el-table v-loading="loading" :data="list">
       <el-table-column label="编号" align="center" prop="id" />
-      <el-table-column
+      <!-- <el-table-column
         label="创建时间"
         align="center"
         prop="createTime"
         width="180"
         :formatter="dateFormatter"
-      />
+      /> -->
       <el-table-column label="手机号" align="center" prop="mobile" width="120">
         <template #default="scope">
           <div>{{ scope.row.mobile }}</div>
@@ -184,7 +184,7 @@
 </template>
 <script lang="ts" setup>
 import { DICT_TYPE, getIntDictOptions, getDictLabel } from '@/utils/dict'
-import { dateFormatter, formatDate } from '@/utils/formatTime'
+import { formatDate } from '@/utils/formatTime'
 import download from '@/utils/download'
 import * as SmsChannelApi from '@/api/system/sms/smsChannel'
 import * as SmsLogApi from '@/api/system/sms/smsLog'

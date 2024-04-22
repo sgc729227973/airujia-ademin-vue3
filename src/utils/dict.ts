@@ -103,6 +103,7 @@ export const getDictLabel = (dictType: string, value: any): string => {
 export enum DICT_TYPE {
   USER_TYPE = 'user_type',
   COMMON_STATUS = 'common_status',
+  COMMON_STATUS_CODE = 'common_status_code',
   TERMINAL = 'terminal', // 终端
 
   // ========== SYSTEM 模块 ==========
@@ -126,6 +127,8 @@ export enum DICT_TYPE {
   SYSTEM_EXPERTISE_TAGS = 'system_expertise_tags', // irujia修改 技能标签
   SYSTEM_SERVICE_TYPE = 'system_service_type', // irujia修改 技能标签
   SYSTEM_SMS_TEMPLATE_DETAIL_TYPE = 'system_sms_template_detail_type', // irujia修改 技能标签
+  SYSTEM_SMS_INTERNATIONAL = 'system_sms_international', // irujia修改 技能标签
+  SYSTEM_SENSITIVE_TYPE = 'system_sensitive_type', // irujia修改 技能标签
 
   // ========== INFRA 模块 ==========
   INFRA_BOOLEAN_STRING = 'infra_boolean_string',
@@ -133,8 +136,6 @@ export enum DICT_TYPE {
   INFRA_JOB_LOG_STATUS = 'infra_job_log_status',
   INFRA_API_ERROR_LOG_PROCESS_STATUS = 'infra_api_error_log_process_status',
   INFRA_CONFIG_TYPE = 'infra_config_type',
-  INFRA_CODEGEN_TEMPLATE_TYPE = 'infra_codegen_template_type',
-  INFRA_CODEGEN_FRONT_TYPE = 'infra_codegen_front_type',
   INFRA_CODEGEN_SCENE = 'infra_codegen_scene',
   INFRA_FILE_STORAGE = 'infra_file_storage',
   INFRA_TOKEN_TYPE = 'infra_token_type',

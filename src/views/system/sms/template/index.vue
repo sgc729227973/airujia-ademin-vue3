@@ -138,12 +138,17 @@
           <dict-tag :type="DICT_TYPE.SYSTEM_SMS_TEMPLATE_TYPE" :value="scope.row.type" />
         </template>
       </el-table-column>
-      <el-table-column label="状态" align="center" prop="status" width="70">
+      <el-table-column label="状态" align="center" prop="status" width="90">
         <template #default="scope">
           <dict-tag :type="DICT_TYPE.COMMON_STATUS" :value="scope.row.status" />
         </template>
       </el-table-column>
-      <el-table-column label="备注" align="center" prop="remark" />
+      <el-table-column label="模版状态" align="center" prop="statusCode" width="160">
+        <template #default="scope">
+          <dict-tag :type="DICT_TYPE.COMMON_STATUS_CODE" :value="scope.row.statusCode" />
+        </template>
+      </el-table-column>
+      <el-table-column label="备注" align="center" prop="remark" width="120"/>
       <el-table-column
         label="短信 API 的模板编号"
         align="center"
@@ -191,6 +196,14 @@
             v-hasPermi="['system:sms-template:delete']"
           >
             删除
+          </el-button>
+          <el-button
+            link
+            type="info"
+            @click="refreshTemplate(scope.row)"
+            v-hasPermi="['system:sms-template:refresh']"
+          >
+            刷新
           </el-button>
         </template>
       </el-table-column>
@@ -252,6 +265,20 @@ const getList = async () => {
   } finally {
     loading.value = false
   }
+}
+// irujia 修改刷新模板的方法
+const refreshTemplate = async (row) => {
+  try {
+    const params = {
+      international: row.international,
+      apiTemplateId: row.apiTemplateId,
+      channelId: row.channelId,
+      tenantId: row.tenantId,
+    };
+    const response = await SmsTemplateApi.refreshSmsTemplate(params);
+    message.success('模板刷新成功');
+    getList();
+  } catch (error) {}
 }
 
 /** 搜索按钮操作 */

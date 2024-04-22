@@ -1,6 +1,4 @@
 <template>
-  <doc-alert title="站内信配置" url="https://doc.iocoder.cn/notify/" />
-
   <!-- 搜索工作栏 -->
   <ContentWrap>
     <el-form
@@ -175,7 +173,8 @@ const queryParams = reactive({
   name: undefined,
   status: undefined,
   code: undefined,
-  createTime: []
+  // createTime: []
+  createTime: ['', ''] as [string, string],
 })
 const queryFormRef = ref() // 搜索的表单
 

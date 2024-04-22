@@ -29,13 +29,12 @@
         </el-select>
       </el-form-item>
       <el-form-item label="状态" prop="status">
-        <el-select v-model="queryParams.status" clearable placeholder="请选择启用状态">
+        <el-select v-model="queryParams.status" clearable placeholder="请选择启用状态" class="!w-240px">
           <el-option
             v-for="dict in getIntDictOptions(DICT_TYPE.COMMON_STATUS)"
             :key="dict.value"
             :label="dict.label"
             :value="dict.value"
-            class="!w-240px"
           />
         </el-select>
       </el-form-item>
@@ -94,6 +93,11 @@
       <el-table-column align="center" label="状态" prop="status">
         <template #default="scope">
           <dict-tag :type="DICT_TYPE.COMMON_STATUS" :value="scope.row.status" />
+        </template>
+      </el-table-column>
+      <el-table-column align="center" label="敏感类型" prop="sensitiveType">
+        <template #default="scope">
+          <dict-tag :type="DICT_TYPE.SYSTEM_SENSITIVE_TYPE" :value="scope.row.sensitiveType" />
         </template>
       </el-table-column>
       <el-table-column align="center" label="描述" prop="description" />
@@ -174,7 +178,8 @@ const queryParams = reactive({
   name: undefined,
   tag: undefined,
   status: undefined,
-  createTime: []
+  // createTime: []
+  createTime: ['', ''] as [string, string],
 })
 const queryFormRef = ref() // 搜索的表单
 const exportLoading = ref(false) // 导出的加载中

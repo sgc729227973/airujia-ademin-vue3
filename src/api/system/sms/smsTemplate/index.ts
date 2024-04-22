@@ -5,6 +5,7 @@ export interface SmsTemplateVO {
   type?: number
   detailType?: number
   status: number
+  international?: number
   code: string
   name: string
   content: string
@@ -59,4 +60,9 @@ export const exportSmsTemplate = (params) => {
 // 发送短信
 export const sendSms = (data: SendSmsReqVO) => {
   return request.post({ url: '/system/sms-template/send-sms', data })
+}
+
+// irujia 修改 刷新模版状态
+export const refreshSmsTemplate = (params) => {
+  return request.post({ url: '/system/sms-template/refresh', params })
 }

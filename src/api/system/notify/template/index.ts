@@ -6,6 +6,7 @@ export interface NotifyTemplateVO {
   nickname: string
   code: string
   content: string
+  tenantName: string //irujia 修改
   type?: number
   params: string
   status: number

@@ -13,6 +13,9 @@
       <el-form-item label="备注" prop="remark">
         <el-input v-model="formData.remark" placeholder="请输入备注" />
       </el-form-item>
+      <el-form-item label="租户名称" prop="tenantName">
+        <el-input v-model="formData.tenantName" placeholder="请输入租户名称" />
+      </el-form-item>
       <el-form-item label="存储器" prop="storage">
         <el-select
           v-model="formData.storage"
@@ -115,6 +118,7 @@ const formType = ref('') // 表单的类型：create - 新增；update - 修改
 const formData = ref({
   id: undefined,
   name: '',
+  tenantName: '',
   storage: 0,
   remark: '',
   config: {} as FileConfigApi.FileClientConfig
@@ -187,6 +191,7 @@ const resetForm = () => {
   formData.value = {
     id: undefined,
     name: '',
+    tenantName: '',
     storage: undefined!,
     remark: '',
     config: {} as FileConfigApi.FileClientConfig

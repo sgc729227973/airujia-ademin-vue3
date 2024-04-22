@@ -41,6 +41,10 @@ const crudSchemas = reactive<CrudSchema[]>([
     field: 'host'
   },
   {
+    label: '租户名称',
+    field: 'tenantName'
+  },
+  {
     label: 'SMTP 服务器端口',
     field: 'port',
     form: {

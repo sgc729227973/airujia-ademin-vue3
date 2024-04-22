@@ -44,7 +44,13 @@ const crudSchemas = reactive<CrudSchema[]>([
     dictType: DICT_TYPE.USER_TYPE,
     dictClass: 'number',
     isSearch: true,
-    isTable: false
+    isTable: false,
+    search: {
+      show: true,
+      componentProps: {
+        style: { width: '200px' }, // irujia 修改调整宽度
+      }
+    },
   },
   {
     label: '邮件标题',
@@ -65,7 +71,13 @@ const crudSchemas = reactive<CrudSchema[]>([
     field: 'sendStatus',
     dictType: DICT_TYPE.SYSTEM_MAIL_SEND_STATUS,
     dictClass: 'string',
-    isSearch: true
+    isSearch: true,
+    search: {
+      show: true,
+      componentProps: {
+        style: { width: '200px' }, // irujia 修改调整宽度
+      }
+    },
   },
   {
     label: '邮箱账号',
@@ -76,6 +88,7 @@ const crudSchemas = reactive<CrudSchema[]>([
       component: 'Select',
       api: () => accountList,
       componentProps: {
+        style: { width: '200px' }, // irujia 修改调整宽度
         optionsAlias: {
           labelField: 'mail',
           valueField: 'id'

@@ -16,6 +16,9 @@
       <el-form-item label="发件人名称" prop="nickname">
         <el-input v-model="formData.nickname" placeholder="请输入发件人名称" />
       </el-form-item>
+      <el-form-item label="租户名称" prop="tenantName">
+        <el-input v-model="formData.tenantName" placeholder="请输入租户名称" />
+      </el-form-item>
       <el-form-item label="模板内容" prop="content">
         <el-input type="textarea" v-model="formData.content" placeholder="请输入模板内容" />
       </el-form-item>
@@ -66,6 +69,7 @@ const formData = ref<NotifyTemplateApi.NotifyTemplateVO>({
   nickname: '',
   code: '',
   content: '',
+  tenantName: '',
   type: undefined,
   params: '',
   status: CommonStatusEnum.ENABLE,
@@ -77,6 +81,7 @@ const formRules = reactive({
   code: [{ required: true, message: '模板编码不能为空', trigger: 'blur' }],
   name: [{ required: true, message: '模板名称不能为空', trigger: 'blur' }],
   nickname: [{ required: true, message: '发件人姓名不能为空', trigger: 'blur' }],
+  tenantName: [{ required: true, message: '租户名称不能为空', trigger: 'blur' }],
   content: [{ required: true, message: '模板内容不能为空', trigger: 'blur' }]
 })
 const formRef = ref() // 表单 Ref
@@ -131,6 +136,7 @@ const resetForm = () => {
     nickname: '',
     code: '',
     content: '',
+    tenantName: '',
     type: undefined,
     params: '',
     status: CommonStatusEnum.ENABLE,

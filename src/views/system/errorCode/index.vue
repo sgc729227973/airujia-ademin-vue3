@@ -1,5 +1,5 @@
 <template>
-  <doc-alert title="异常处理（错误码）" url="https://doc.iocoder.cn/exception/" />
+
 
   <!-- 搜索工作栏 -->
   <ContentWrap>
@@ -11,13 +11,12 @@
       label-width="90px"
     >
       <el-form-item label="错误码类型" prop="type">
-        <el-select v-model="queryParams.type" placeholder="请选择错误码类型" clearable>
+        <el-select v-model="queryParams.type" placeholder="请选择错误码类型" clearable class="!w-240px">
           <el-option
             v-for="dict in getIntDictOptions(DICT_TYPE.SYSTEM_ERROR_CODE_TYPE)"
             :key="dict.value"
             :label="dict.label"
             :value="dict.value"
-            class="!w-240px"
           />
         </el-select>
       </el-form-item>
@@ -94,8 +93,9 @@
       </el-table-column>
       <el-table-column label="应用名" align="center" prop="applicationName" width="200" />
       <el-table-column label="错误码编码" align="center" prop="code" width="120" />
+      <el-table-column label="枚举值" align="center" prop="enumKey" width="120" />
       <el-table-column label="错误码提示" align="center" prop="message" width="300" />
-      <el-table-column label="备注" align="center" prop="memo" width="200" />
+      <el-table-column label="备注" align="center" prop="memo" width="120" />
       <el-table-column
         label="创建时间"
         align="center"
@@ -160,7 +160,8 @@ const queryParams = reactive({
   applicationName: undefined,
   code: undefined,
   message: undefined,
-  createTime: []
+  // createTime: []
+  createTime: ['', ''] as [string, string],
 })
 const queryFormRef = ref() // 搜索的表单
 

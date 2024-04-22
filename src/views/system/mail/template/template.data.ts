@@ -56,6 +56,7 @@ const crudSchemas = reactive<CrudSchema[]>([
       component: 'Select',
       api: () => accountList,
       componentProps: {
+        style: { width: '200px' }, // 调整宽度
         optionsAlias: {
           labelField: 'mail',
           valueField: 'id'
@@ -82,7 +83,13 @@ const crudSchemas = reactive<CrudSchema[]>([
     field: 'status',
     isSearch: true,
     dictType: DICT_TYPE.COMMON_STATUS,
-    dictClass: 'number'
+    dictClass: 'number',
+    search: {
+      show: true,
+      componentProps: {
+        style: { width: '200px' }, // irujia 修改调整宽度
+      }
+    },
   },
   {
     label: '备注',

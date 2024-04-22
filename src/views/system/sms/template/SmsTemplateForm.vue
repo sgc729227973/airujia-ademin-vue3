@@ -30,6 +30,16 @@
           />
         </el-select>
       </el-form-item>
+      <el-form-item label="国际/国内模版" prop="international">
+        <el-select v-model="formData.international" placeholder="请选择国际/国内模版">
+          <el-option
+            v-for="dict in getIntDictOptions(DICT_TYPE.SYSTEM_SMS_INTERNATIONAL)"
+            :key="dict.value"
+            :label="dict.label"
+            :value="dict.value"
+          />
+        </el-select>
+      </el-form-item>
       <el-form-item label="详细类型" prop="detailType">
         <el-select v-model="formData.detailType" placeholder="请选择详细类型">
           <el-option
@@ -96,6 +106,7 @@ const formData = ref<SmsTemplateApi.SmsTemplateVO>({
   type: undefined,
   detailType: undefined, //irujia 修改
   status: CommonStatusEnum.ENABLE,
+  international: undefined,
   code: '',
   name: '',
   content: '',
@@ -111,7 +122,7 @@ const formRules = reactive({
   name: [{ required: true, message: '模板名称不能为空', trigger: 'blur' }],
   tenantName: [{ required: true, message: '租户名称不能为空', trigger: 'blur' }],
   content: [{ required: true, message: '模板内容不能为空', trigger: 'blur' }],
-  apiTemplateId: [{ required: true, message: '短信 API 的模板编号不能为空', trigger: 'blur' }],
+  // apiTemplateId: [{ required: true, message: '短信 API 的模板编号不能为空', trigger: 'blur' }],
   channelId: [{ required: true, message: '短信渠道编号不能为空', trigger: 'change' }]
 })
 const formRef = ref() // 表单 Ref
@@ -168,6 +179,7 @@ const resetForm = () => {
     type: undefined,
     detailType: undefined,
     status: CommonStatusEnum.ENABLE,
+    international: undefined,
     code: '',
     name: '',
     content: '',

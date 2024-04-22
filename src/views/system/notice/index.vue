@@ -1,4 +1,6 @@
 <template>
+    <doc-alert title="推送时选择推送的渠道，需要推送的部门或人员。推送的记录。 " />
+
   <ContentWrap>
     <!-- 搜索工作栏 -->
     <el-form

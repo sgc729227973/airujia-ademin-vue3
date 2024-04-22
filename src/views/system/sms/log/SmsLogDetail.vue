@@ -28,11 +28,14 @@
       <el-descriptions-item label="短信内容">
         {{ detailData.templateContent }}
       </el-descriptions-item>
+      <el-descriptions-item label="用户回复内容">
+        {{ detailData.replyContents }}
+      </el-descriptions-item>
+      <el-descriptions-item label="用户回复时间">
+        {{ formatDate(detailData.replyTime) }}
+      </el-descriptions-item>
       <el-descriptions-item label="短信参数">
         {{ detailData.templateParams }}
-      </el-descriptions-item>
-      <el-descriptions-item label="创建时间">
-        {{ formatDate(detailData.createTime) }}
       </el-descriptions-item>
       <el-descriptions-item label="发送状态">
         <dict-tag :type="DICT_TYPE.SYSTEM_SMS_SEND_STATUS" :value="detailData.sendStatus" />

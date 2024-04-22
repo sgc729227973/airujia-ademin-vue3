@@ -6,6 +6,7 @@ export interface ErrorCodeVO {
   applicationName: string
   code: number | undefined
   message: string
+  enumKey: string
   memo: string
   createTime: Date
 }
